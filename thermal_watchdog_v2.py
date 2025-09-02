@@ -5,12 +5,13 @@ import sys
 
 # set max temps for cpu, battery, ssd, wifi chip, and gpu in millidegrees celsius
 # switch to dictionary for easier storing and comparison
+# the temps I've chosen are quite low and would probably be triggered during more demanding games, but 90 percent of the time i'm playing non demanding games
 max_temps = {
-    'cpu': 90000,
-    'battery': 60000,
-    'nvme': 80000,
-    'wifi': 100000,
-    'gpu': 90000
+    'cpu': 80000, # 80 °C
+    'battery': 60000, # 60 °C
+    'nvme': 70000, # 70 °C
+    'wifi': 90000, # 90 °C
+    'gpu': 80000 # 80 °C
 }
 
 # set sensor paths for each device found through testing lm-sensors
@@ -66,7 +67,7 @@ def log_exceed(device, current_temp, max_temp):
 
     # open log file and write timestamp with device info such as name, max temp, and recorded temp at shutdown
     with open(exceed_temp_path, 'a') as file:
-        file.write(f"{timestamp}: {device.upper()} exceeded max safe temperature ({max_temp / 1000}°C). Current temp: {current_temp / 1000}°C. Initiating safe shutdown.\n")
+        file.write(f"{timestamp}: {device.upper()} exceeded max safe temperature ({max_temp / 1000} °C). Current temp: {current_temp / 1000} °C. Initiating safe shutdown.\n")
 
 # function to perform safe shutdown with subprocess
 def safe_shutdown():
