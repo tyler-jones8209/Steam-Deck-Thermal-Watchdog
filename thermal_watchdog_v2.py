@@ -5,13 +5,13 @@ import sys
 
 # set max temps for cpu, battery, ssd, wifi chip, and gpu in millidegrees celsius
 # switch to dictionary for easier storing and comparison
-# the temps I've chosen are quite low and would probably be triggered during more demanding games, but 90 percent of the time i'm playing non demanding games
+# the temps I've chosen are quite low and would probably be triggered during more demanding games, but 90 percent of the time i'm playing non-demanding games
 max_temps = {
-    'cpu': 80000, # 80 °C
-    'battery': 60000, # 60 °C
-    'nvme': 70000, # 70 °C
-    'wifi': 90000, # 90 °C
-    'gpu': 80000 # 80 °C
+    'cpu': 80000,         # 80 °C
+    'battery': 60000,     # 60 °C
+    'nvme': 70000,        # 70 °C
+    'wifi': 90000,        # 90 °C
+    'gpu': 80000          # 80 °C
 }
 
 # set sensor paths for each device found through testing lm-sensors
@@ -106,7 +106,11 @@ while True:
 
     # loop through devices and check current temps against max temps; if exceeded log timestamp and temp and safely shutdown (in theory)
     for device, temp in temps.items():
+
+        # pull max temp for each device from user-defined temps
         max_temp = max_temps[device]
+
+        # if temp exceeds max, log recorded temp and safely shutdown
         if temp >= max_temp:
             log_exceed(device, temp, max_temp)
             safe_shutdown()
